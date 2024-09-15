@@ -26,6 +26,10 @@ public class Employee{
         return name;
     }
 
+    public int getId(){
+        return id;
+    }
+
     public void setDepartment(byte department) {
         this.department = department;
     }

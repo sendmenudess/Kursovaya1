@@ -27,6 +27,17 @@ public class Main {
         System.out.println("Sotrudnik s maximalnoy zarplaroy - " + findEmployeeMaxSalary());
         System.out.println("Srednyaya zarplata - "+findAverageSalary());
         printFIO();
+        System.out.println(EMPLOYEES[1].getSalary());
+        indexSalary(5);
+        System.out.println(EMPLOYEES[1].getSalary());
+        printEmloyeesInDept(3);
+        System.out.println("Sotrudnik s minimalnoy zarplaroy v 3 otdele - " + findEmployeeMinSalaryInDept(3));
+        System.out.println("Sotrudnik s maximalnoy zarplaroy v 3 otdele - " + findEmployeeMaxSalaryInDept(3));
+        System.out.println("Srednyaa zarplata v 3 otdele - "+ findAverageSalaryInDept(3));
+        indexSalaryInDept(3, 10);
+        printEmloyeesInDept(3);
+        printEmloyeesLowerSalary(70000);
+        printEmloyeesHigherSalary(70000);
     }
 
     public static void printEmployees() {
@@ -66,6 +77,76 @@ public class Main {
     private static void printFIO(){
         for (Employee employee : EMPLOYEES){
             System.out.println(employee.getName());
+        }
+    }
+    private static void indexSalary(double kef){
+        kef = kef/100;
+        for (Employee employee : EMPLOYEES){
+            employee.setSalary((int) (employee.getSalary() + employee.getSalary()*kef));
+        }
+    }
+    private static Employee findEmployeeMinSalaryInDept(int department){
+        Employee employeeMinSalaryInDept = null;
+        for (Employee employee : EMPLOYEES) {
+            if (employee.getDepartment() == department) {
+                if (employeeMinSalaryInDept == null || employee.getSalary() < employeeMinSalaryInDept.getSalary()) {
+                    employeeMinSalaryInDept = employee;
+                }
+            }
+        }
+        return employeeMinSalaryInDept;
+    }
+    private static Employee findEmployeeMaxSalaryInDept(int department){
+        Employee employeeMaxSalaryInDept = null;
+        for (Employee employee : EMPLOYEES) {
+            if (employee.getDepartment() == department) {
+                if (employeeMaxSalaryInDept == null || employee.getSalary() > employeeMaxSalaryInDept.getSalary()) {
+                    employeeMaxSalaryInDept = employee;
+                }
+            }
+        }
+        return employeeMaxSalaryInDept;
+    }
+    private static double findAverageSalaryInDept(int department) {
+        int count = 0;
+        int summ = 0;
+        for (Employee employee : EMPLOYEES) {
+            if (employee.getDepartment() == department) {
+                summ = summ + employee.getSalary();
+                count++;
+            }
+        }
+        return (double) summ / count;
+    }
+    private static void indexSalaryInDept(int department, double kef) {
+        kef = kef / 100;
+
+        Employee employeeMaxSalaryInDept = null;
+        for (Employee employee : EMPLOYEES) {
+            if (employee.getDepartment() == department) {
+                employee.setSalary((int) (employee.getSalary() + employee.getSalary() * kef));
+            }
+        }
+    }
+    private static void printEmloyeesInDept(int department) {
+        for (Employee employee : EMPLOYEES) {
+            if (employee.getDepartment() == department) {
+                System.out.println("Name - " + employee.getName() + ", Zarplata - " + employee.getSalary() + ", ID -  " + employee.getId());
+            }
+        }
+    }
+    private static void printEmloyeesLowerSalary(int a){
+        for (Employee employee : EMPLOYEES){
+            if (employee.getSalary()<a){
+                System.out.println("ID "+employee.getId()+", Name "+employee.getName()+", zarplata "+employee.getSalary());
+            }
+        }
+    }
+    private static void printEmloyeesHigherSalary(int a){
+        for (Employee employee : EMPLOYEES){
+            if (employee.getSalary()>a){
+                System.out.println("ID "+employee.getId()+", Name "+employee.getName()+", zarplata "+employee.getSalary());
+            }
         }
     }
 }
